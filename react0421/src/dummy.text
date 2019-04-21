@@ -1,0 +1,117 @@
+import React, { Component,Fragment} from 'react';
+import './App.css';
+
+class NumberItem extends Component{
+  static defaultProps = {
+    number: 0,
+  }
+
+  onClick = (e)=>{
+    if(this.props.onNumberClick){
+      this.props.onNumberClick(e);
+    }
+  }
+
+  render(){
+    const {number} = this.props;
+    const style = {
+      backgroundColor:"crimson",
+      color:"white",
+      padding:"16px",
+      margin:"16px",
+      fontWeight:"bold",
+      fontSize:"30px",
+      display:"inline-block"
+    }
+    return <div style={style} onClick={this.onClick}>{number}</div>
+  }
+}
+
+class App extends Component {
+
+  // constructor(props){
+  //   super(props);
+  //   // this.state = {
+  //   //   count:0,
+  //   // } // 초기화하는 작업.
+  //   this.increaseCount = this.increaseCount.bind(this);
+  //   this.decreaseCount = this.decreaseCount.bind(this);
+  // } // 하단처럼 arrow function쓰면 이렇게 작성 안해줘도 됨
+
+  constructor(props){
+    super(props);
+    console.log("constructor")
+  }
+
+  static getDerivedStateFromProps(nextProps,PrevState){
+    return null;
+  }
+
+  componentDidMount(){
+    console.log("componentDidMount")
+  }
+
+  shouldComponentUpdate(nextProps,nextState){
+    if(nextState.number>10){
+      return false;
+    }
+    return true;
+  }
+
+  getSnapshotBeforeUpdate(prevProps,prevState){
+    const snapshot = {}
+    return snapshot
+  }
+
+  componentWillMount(){
+
+  }
+
+  componentDidUpdate(prevProps,prevState,snapshot){
+    
+  }
+
+  state = {
+    number: 7
+  }
+
+  onClick= ()=>{
+    this.setState({
+      number:this.state.number+1
+    })
+  }
+
+  // increaseCount = ()=>{
+  //     this.setState({
+  //       count:this.state.count+1
+  //     })
+  // }
+
+  // decreaseCount = ()=>{
+  //   this.setState({
+  //     count:this.state.count-1
+  //   })
+  // }
+
+  render() {
+    const {number} = this.state;
+
+    // if(count > 10){
+    //   return <h1>초과입니다.</h1>
+    // } // 아래처럼 해도 됨.
+
+    // return (
+    //   count>10?
+    //   <h1>초과입니다.</h1>:
+    //   <Fragment>
+    //     <h1>{count}</h1>
+    //     <button onClick={this.increaseCount}>UP</button>
+    //     <button onClick={this.decreaseCount}>DOWN</button>
+    //   </Fragment>
+    // );
+
+    return <h1 onClick={this.onClick}>{number}</h1>
+  }
+}
+
+export default App;
