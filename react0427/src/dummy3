@@ -1,0 +1,52 @@
+import React, {Component} from "react";
+
+class App extends Component{
+
+  state ={
+    content: "",
+    inputValue: ""
+  }
+
+  show = ()=>{
+    // input 의 내용을 읽어와서 화면에 출력
+
+    // input 의 내용을 읽어와야해요
+    // 1. state를 활용하는 방법 (react에서 권장하는 방법)
+    // 2. ref를 활용하는 방법
+
+    // 그 값을 state에 저장해야해요
+
+    // ref를 활용하는 방법
+    // this.setState({
+    //   content: this.refs.myInput.value
+    // })
+
+    // 권장하는 방법
+    this.setState({
+      content: this.state.inputValue
+    })
+  }
+
+  onChange = (e)=>{
+    this.setState({
+      inputValue: e.target.value
+    })
+  }
+ 
+  render(){
+
+    const {content,inputValue} = this.state;
+
+    return(
+      <div>
+        <input ref="myInput" value={inputValue} onChange={this.onChange} />
+        <button onClick={this.show}>show</button>
+        <h1>{content}</h1>
+      </div>
+    )
+
+  }
+
+}
+
+export default App;

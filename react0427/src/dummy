@@ -1,0 +1,54 @@
+import React, {Component} from "react";
+
+class Profile extends Component{
+
+  onClick = ()=>{
+    const {id, name, age} = this.props;
+    this.props.onItemClick(id, name, age);
+  }
+
+  render(){
+    const {name,age} = this.props;
+    return(
+      <div style={{backgroundColor:"crimson", color:"white", padding:8, margin:"16px"}} onClick={this.onClick}>
+        <h1>{name}</h1>
+        <p>{age}</p>
+      </div>
+    );
+  }
+}
+
+class App extends Component{
+
+  onItemClick = (id, name, age)=>{
+    if(id===1){
+      console.log('asdfdasfas');
+    }else{
+      console.log("onItemClick", id, name, age) 
+    }
+  }
+
+  render(){
+
+    const list = [
+      {id : 1, name : "jack", age : 20},
+      {id : 2, name : "Jun", age : 20},
+      {id : 3, name : "julia", age : 20},
+      {id : 4, name : "jay", age : 20}
+    ]
+
+    const listView = list.map((item, index, array)=>{
+      const {id,name,age} = item;
+      return <Profile key={id} id={id} name={name} age={age} onItemClick={this.onItemClick} />;
+    })
+
+    return(
+      <div>
+        {listView}
+      </div>
+    );
+  }
+
+}
+
+export default App;

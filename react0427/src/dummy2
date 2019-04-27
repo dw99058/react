@@ -1,0 +1,84 @@
+import React, {Component} from "react";
+
+
+// class User extends Component{
+//   render(){
+//     const {name} = this.props;
+//     return <div>
+//       <h1>{name}</h1>
+//     </div>
+//   }
+// }
+
+class UserList extends Component{
+  static defaultProps = {
+    users:[
+
+    ]
+  }
+
+  shouldComponentUpdate(nextProps, nextState){ // 업데이트
+    return this.props.users !== nextProps.users; // 같은 객체 return false;
+  }
+
+  render(){
+    console.log("user list render")
+    const usersView = this.props.users.map((name,index)=>{
+      return <h1 key={index}>
+        {name}
+      </h1>
+    });
+
+    return <div>
+      {usersView}
+    </div>
+  }
+}
+
+class App extends Component{
+
+  state = {
+    users:["jack"],
+    count: 0
+  }
+
+  onClick = ()=>{
+    this.setState({
+      count: this.state.count+1
+    })
+  }
+
+  addUser = ()=>{
+    // const usres = this.state.users;
+    // users.push("joi");
+
+    //this.state.users = [1,2,3,4,5] 메모리주소 200
+    // newUsers = [1,2,3,4,5] 메모리주소 300
+
+    // this.state.users = ["jack"]
+    const newUsers = ["blue", ...this.state.users, "joi"];
+    // newUsers = ["blue","jack","joi"]
+    
+    this.setState({
+      users : newUsers
+    })
+  }
+
+  render(){
+    console.log("app render")
+    const {users,count} = this.state;
+
+    return(
+      <div>
+        <UserList users = {users} />
+        <h1>{count}</h1>
+        <button onClick={this.onClick}>Test</button>
+        <button onClick={this.addUser}>add user</button>
+      </div>
+    )
+
+  }
+
+}
+
+export default App;
