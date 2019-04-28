@@ -1,0 +1,50 @@
+import React, { Component } from 'react';
+import './App.css';
+
+class App extends Component {
+
+  state = {
+    content: "",
+    todos: ["씻기"]
+  }
+
+  add = (content)=>{
+    this.setState({
+      todos: [...this.state.todos, content]
+    })
+  }
+
+  onClick = ()=>{
+    this.add(this.state.content);
+  }
+
+  onChange = (e)=>{
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
+
+  render() {
+
+    const {content, todos} = this.state;
+
+    const list = todos.map((item, index) => {
+      return <div className="todo" key={index}>{index + 1} {item}</div>
+    })
+
+    return (
+      <div className="container">
+        <div className="section">
+          {list}
+        </div>
+        <div className="section"> 
+          <input className="input-content" name="content" value={content} onChange={this.onChange} />
+          <button className="bt" onClick={this.onClick}>추가</button>
+        </div>
+      </div>
+    );
+  }
+
+}
+
+export default App;
